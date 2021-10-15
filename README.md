@@ -1,6 +1,6 @@
 # Shortener API
 
-<strong>This is a link shortener generator made in Golang. </strong>
+<strong>This is a URL Shortener generator made in Golang. </strong>
 
 ### Run it:
 ```
