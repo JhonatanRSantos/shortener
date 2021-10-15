@@ -7,17 +7,10 @@
 go run main.go
 ```
 
-### Endpoints: 
-<br>
+### Documentation:
+- http://localhost:5000/docs/index.html
 
-[POST] http://localhost:5000/
-```
-{
-	"url": "facebook.com"
-}
-```
-
-[GET] http://localhost:5000/:uri
+![Alt text](images/docs.png?raw=true "Title")
 
 ### By: Me 😀
 

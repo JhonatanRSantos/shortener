@@ -38,7 +38,7 @@ func (l *Link) Find(dbConnection interfaces.DBConnection) (Link, error) {
 
 // Create a new link
 func NewLink(url string, uri string, createdAt time.Time, updatedAt time.Time) Link {
-	if !strings.Contains(url, "http://") || strings.Contains(url, "https://") {
+	if !strings.Contains(url, "http://") || !strings.Contains(url, "https://") {
 		url = "https://" + url
 	}
 

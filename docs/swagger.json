@@ -1,0 +1,106 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {
+            "name": "API Jhonatan R. Santos",
+            "url": "https://github.com/JhonatanRSantos/shortener"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://github.com/JhonatanRSantos/shortener/blob/main/LICENSE"
+        }
+    },
+    "paths": {
+        "/": {
+            "post": {
+                "description": "Generates a shorter URL",
+                "tags": [
+                    "Shortener"
+                ],
+                "summary": "shortener",
+                "parameters": [
+                    {
+                        "description": "The request body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/shorter.CreateParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A shorten url",
+                        "schema": {
+                            "$ref": "#/definitions/shorter.CreateResponse"
+                        }
+                    },
+                    "400": {
+                        "description": ""
+                    },
+                    "500": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/{uri}": {
+            "get": {
+                "description": "Find the given URI and Redirects the user to the requested website",
+                "tags": [
+                    "Shortener"
+                ],
+                "summary": "Find and Redirect",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "u43oS8h6",
+                        "description": "The URI for a given link",
+                        "name": "uri",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "308": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    },
+                    "500": {
+                        "description": ""
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "shorter.CreateParams": {
+            "type": "object",
+            "required": [
+                "url"
+            ],
+            "properties": {
+                "url": {
+                    "type": "string",
+                    "example": "www.google.com.br"
+                }
+            }
+        },
+        "shorter.CreateResponse": {
+            "type": "object",
+            "properties": {
+                "base_url": {
+                    "type": "string",
+                    "example": "http://localhost:5000/"
+                },
+                "uri": {
+                    "type": "string",
+                    "example": "u43oS8h6"
+                }
+            }
+        }
+    }
+}

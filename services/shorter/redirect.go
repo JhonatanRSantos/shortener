@@ -11,8 +11,14 @@ import (
 
 var dbRedirect interfaces.DBConnection
 
-// Find Redirects the user to the requested website
-// @Param c The current fiber context
+// Find the given URI and Redirects the user to the requested website
+// @tags Shortener
+// @Summary Find and Redirect
+// @Description Find the given URI and Redirects the user to the requested website
+// @Param uri path string true "The URI for a given link" default(u43oS8h6)
+// @Success 308
+// @Failure 404,500
+// @Router /{uri} [get]
 func Redirect(c *fiber.Ctx) error {
 	link := &link.Link{URI: c.Params("uri")}
 	output, err := link.Find(dbRedirect)
@@ -23,7 +29,7 @@ func Redirect(c *fiber.Ctx) error {
 		return c.SendStatus(404)
 	}
 
-	return c.Redirect(output.URL)
+	return c.Status(fiber.StatusPermanentRedirect).Redirect(output.URL)
 }
 
 // Creats a new Handler

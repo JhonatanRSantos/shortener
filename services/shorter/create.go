@@ -13,11 +13,22 @@ const randomStringSize = 8
 var dbCreate interfaces.DBConnection
 
 type CreateParams struct {
-	URL string `json:"url" validate:"required,min=1"`
+	URL string `json:"url" validate:"required,min=1" example:"www.google.com.br"`
 }
 
-// Generate a shorter URL
-// @Param c The current fiber context
+type CreateResponse struct {
+	BaseURL string `json:"base_url" example:"http://localhost:5000/"`
+	URI     string `json:"uri" example:"u43oS8h6"`
+}
+
+// Generates a shorter URL
+// @tags Shortener
+// @Summary shortener
+// @Description Generates a shorter URL
+// @Param data body CreateParams true "The request body"
+// @Success 200 {object} CreateResponse "A shorten url"
+// @Failure 400,500
+// @Router / [post]
 func Create(c *fiber.Ctx) error {
 	params := &CreateParams{}
 	if err := utils.ParseAndValidateBodyParams(c.BodyParser, params); err != nil {
@@ -34,7 +45,10 @@ func Create(c *fiber.Ctx) error {
 	)
 	link.Save(dbCreate)
 
-	return c.SendString(c.BaseURL() + "/" + link.URI)
+	return c.JSON(CreateResponse{
+		BaseURL: c.BaseURL() + "/",
+		URI:     link.URI,
+	})
 }
 
 // Creates a new Handler

@@ -1,0 +1,69 @@
+definitions:
+  shorter.CreateParams:
+    properties:
+      url:
+        example: www.google.com.br
+        type: string
+    required:
+    - url
+    type: object
+  shorter.CreateResponse:
+    properties:
+      base_url:
+        example: http://localhost:5000/
+        type: string
+      uri:
+        example: u43oS8h6
+        type: string
+    type: object
+info:
+  contact:
+    name: API Jhonatan R. Santos
+    url: https://github.com/JhonatanRSantos/shortener
+  license:
+    name: MIT
+    url: https://github.com/JhonatanRSantos/shortener/blob/main/LICENSE
+paths:
+  /:
+    post:
+      description: Generates a shorter URL
+      parameters:
+      - description: The request body
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/shorter.CreateParams'
+      responses:
+        "200":
+          description: A shorten url
+          schema:
+            $ref: '#/definitions/shorter.CreateResponse'
+        "400":
+          description: ""
+        "500":
+          description: ""
+      summary: shortener
+      tags:
+      - Shortener
+  /{uri}:
+    get:
+      description: Find the given URI and Redirects the user to the requested website
+      parameters:
+      - default: u43oS8h6
+        description: The URI for a given link
+        in: path
+        name: uri
+        required: true
+        type: string
+      responses:
+        "308":
+          description: ""
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Find and Redirect
+      tags:
+      - Shortener
+swagger: "2.0"
